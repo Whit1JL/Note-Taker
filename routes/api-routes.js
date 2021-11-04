@@ -1,7 +1,5 @@
-var path = require("path")
-var noteData = require("../db/db.json")
-const fs = require("fs")
-const { v4: uuidv4 } = require('uuid');
+const router = require('express').Router();
+const store = require('../db/store');
 
 
 // API ROUTE
