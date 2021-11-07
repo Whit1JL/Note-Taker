@@ -4,12 +4,12 @@ const store = require('../db/store');
 
 // API ROUTE
 module.exports = function (app) {
-    //get request
-    app.get("/api/notes", function (req,res){
+    //get request 
+    router.get("/notes", function (req,res){
         res.json(noteData)
     })
     //post request
-    app.post("/api/notes", function (req,res){
+    router.post("/api/notes", function (req,res){
         req.body.id = uuidv4()
         noteData.push(req.body)
         fs.writeFile("./db/db.json", JSON.stringify(noteData), function(err){
@@ -21,7 +21,7 @@ module.exports = function (app) {
         
     })
     //delete request
-    app.delete("/api/notes/:id", function (req,res){
+    router.delete("/api/notes/:id", function (req,res){
         var note = req.params.id
         console.log(note)
         var journal = []
