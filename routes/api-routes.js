@@ -1,6 +1,6 @@
 const router = require('express').Router();
-const store = require('../db/store');
-
+var noteData = require('../db/db.json');
+const uuidv4 = require('uuid');
 
 // API ROUTE
 module.exports = function (app) {
@@ -12,7 +12,7 @@ module.exports = function (app) {
     router.post("/api/notes", function (req,res){
         req.body.id = uuidv4()
         noteData.push(req.body)
-        fs.writeFile("./db/db.json", JSON.stringify(noteData), function(err){
+        fs.writeFile("../db/db.json", JSON.stringify(noteData), function(err){
             if(err) {
                 throw error
             }
