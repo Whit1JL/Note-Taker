@@ -1,15 +1,17 @@
 const router = require('express').Router();
 var noteData = require('../db/db.json');
-const uuidv4 = require('uuid');
+const { v4: uuidv4 } = require('uuid');
+const fs = require('fs');
+
 
 // API ROUTE
-module.exports = function (app) {
     //get request 
     router.get("/notes", function (req,res){
-        res.json(noteData)
+        res.json(JSON.parse(fs.readFileSync("./db/db.json", "utf8")))
     })
+
     //post request
-    router.post("/api/notes", function (req,res){
+    router.post("/notes", function (req,res){
         req.body.id = uuidv4()
         noteData.push(req.body)
         fs.writeFile("../db/db.json", JSON.stringify(noteData), function(err){
@@ -21,7 +23,7 @@ module.exports = function (app) {
         
     })
     //delete request
-    router.delete("/api/notes/:id", function (req,res){
+    router.delete("/notes/:id", function (req,res){
         var note = req.params.id
         console.log(note)
         var journal = []
@@ -40,4 +42,4 @@ module.exports = function (app) {
         })
    
     })
-}
+module.exports = router;
