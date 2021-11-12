@@ -1,5 +1,4 @@
 const express = require("express");
-const path = require('path');
 const apiRoutes = require('./routes/api-routes');
 const htmlRoutes = require('./routes/html-routes');
 
@@ -7,15 +6,19 @@ const htmlRoutes = require('./routes/html-routes');
 const app = express();
 const PORT = process.env.PORT || 3005;
 
+
+app.use(express.urlencoded({ extended: true }));
+
+app.use(express.json());
+
+
 app.use(express.static('public'));
 
 // middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 app.use('/api', apiRoutes);
 app.use('/', htmlRoutes);
 
 //server listener
-app.listen(PORT, function() {
-    console.log("App listening on PORT: " + PORT)
+app.listen(PORT, () => {
+    console.log(`API server is ready on port ${PORT}!`)
 });
